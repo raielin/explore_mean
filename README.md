@@ -1,2 +1,2 @@
-# uw_mean_cl
-test bed for uw mean stack
+#Uweave MEAN Stack Front-End Dev
+Testing environment for development of Uweave Hypermedia Services and Presentation Services
