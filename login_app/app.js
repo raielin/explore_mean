@@ -3,20 +3,19 @@ var app = angular.module('newsr', ['ui.router']);
 // Configure ui-router using Angular config() function to setup a _home_ state.
 app.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-      .state('home', {
+    $stateProvider.state('home', {
         url: '/home',
         templateUrl: '/home.html',
         controller: 'MainCtrl'
       });
 
-      // route to individual post
-      .state('posts', {
-        // 'id' is a route parameter that will be made available to our controller
-        url: '/posts/{id}',
-        templateUrl: '/posts.html',
-        controller: 'PostsCtrl'
-      });
+    // route to individual post
+    $stateProvider.state('posts', {
+      // 'id' is a route parameter that will be made available to our controller
+      url: '/posts/{id}',
+      templateUrl: '/posts.html',
+      controller: 'PostsCtrl'
+    });
 
     $urlRouterProvider.otherwise('home');
   }]);
@@ -69,11 +68,25 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
   }
 ]);
 
-// PostsCtrl - injecting $stateParams and postsFactory service. $stateParams is a ui-router object provides controller with individual parts of the navigated URL.
+// PostsCtrl - injecting $stateParams and postsFactory service. $stateParams is a ui-router object - provides controller with individual parts of the navigated URL. In this case, allows us to retrieve the post id from the URL and load the appropriate post.
 // More on $stateParams: https://github.com/angular-ui/ui-router/wiki/URL-Routing
 app.controller('PostsCtrl', ['$scope', '$stateParams', 'postsFactory',
   function($scope, $stateParams, postsFactory) {
+    $scope.post = postsFactory.posts[$stateParams.id];
 
+    $scope.addComment = function() {
+      if($scope.body === '') {
+        return;
+      }
+
+      $scope.post.comments.push({
+        body: $scope.body,
+        author: 'user',
+        upvotes: 0
+      });
+
+      $scope.body = '';
+    };
   }
 ]);
 
