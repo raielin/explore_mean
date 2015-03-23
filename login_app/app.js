@@ -65,5 +65,11 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
   }
 ]);
 
+app.controller('PostsCtrl', ['$scope', '$stateParams', 'postsFactory',
+  function($scope, $stateParams, postsFactory) {
+
+  }
+]);
+
 
 
