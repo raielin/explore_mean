@@ -11,6 +11,11 @@ app.controller('MainCtrl', ['$scope',
       {title: 'post 5', upvotes: 4}
     ];
     $scope.addPost = function() {
+      // prevent user from submitting a new post with a blank title
+      if(!$scope.title || $scope.title === '') {
+        return;
+      }
+
       // retrieve title from ng-model directive and push object to posts array
       $scope.posts.push({title: $scope.title, upvotes: 0});
 
