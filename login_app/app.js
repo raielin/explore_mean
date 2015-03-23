@@ -26,6 +26,7 @@ app.controller('MainCtrl', ['$scope',
       $scope.title = '';
     }
 
+    // passing in the current instance of post from the view. this happens _by reference_ so upvotes are automatically reflected back to view.
     $scope.incrementUpvotes = function(post) {
       post.upvotes += 1;
     }
