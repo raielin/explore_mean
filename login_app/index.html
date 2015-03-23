@@ -15,7 +15,9 @@
       {{post.title}} - upvotes: {{post.upvotes}}
     </div>
 
+    <!-- ng-submit will call addPost() upon button click -->
     <form ng-submit="addPost()">
+      <!-- ng-model directive binds contents of input text box to $scope such that $scope.title can be accessed by our controller -->
       <input type="text" ng-model="title"></input>
       <button type="submit">Post</button>
     </form>
