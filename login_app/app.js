@@ -50,7 +50,11 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
       $scope.posts.push({
         title: $scope.title,
         link: $scope.link,
-        upvotes: 0
+        upvotes: 0,
+        comments: [
+          {author: 'Joe', body: 'Cool post!', upvotes: 0},
+          {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
+        ]
       });
 
       // clear title and link value after adding new post.
@@ -65,6 +69,8 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
   }
 ]);
 
+// PostsCtrl - injecting $stateParams and postsFactory service. $stateParams is a ui-router object provides controller with individual parts of the navigated URL.
+// More on $stateParams: https://github.com/angular-ui/ui-router/wiki/URL-Routing
 app.controller('PostsCtrl', ['$scope', '$stateParams', 'postsFactory',
   function($scope, $stateParams, postsFactory) {
 
