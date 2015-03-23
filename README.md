@@ -1,2 +1,2 @@
-#Uweave MEAN Stack Front-End Dev
-Testing environment for development of Uweave Hypermedia Services and Presentation Services
+##Practice with MEAN
+Tutorials, exercises, sample apps, and notes created/used while learning MEAN.
