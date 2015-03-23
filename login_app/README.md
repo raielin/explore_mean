@@ -9,6 +9,7 @@ https://thinkster.io/mean-stack-tutorial/
 * Add comments about a given post
 * View comments for a given post
 * Upvote posts and comments
+* Create and authenticate users
 
 ####Additional Libraries
 * [Mongoose.js](http://mongoosejs.com/) for adding structure to MongoDB
