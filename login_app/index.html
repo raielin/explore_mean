@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <!-- inline home template -->
+    <!-- Inline template for /home.html -->
     <script type="text/ng-template" id="/home.html">
       <div class="page-header">
         <h1>Welcome to Newsr!</h1>
@@ -26,7 +26,7 @@
         <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(post)"></span>
         {{post.upvotes}}
 
-        <span style="font-size:20px; margin-lift:10px;">
+        <span style="font-size: 20px; margin-left: 10px;">
           <!-- This <a> tag renders when post.link evaluates to truthy -->
           <a ng-show="post.link" href="{{post.link}}" target=_blank>
             {{post.title}}
@@ -35,11 +35,15 @@
           <span ng-hide="post.link">
             {{post.title}}
           </span>
+          <!-- When iterating over an array, the ng-repeat directive makes an $index variable along with each item in the array -->
+          <span>
+            <a href="#/posts/{{$index}}">Comments</a>
+          </span>
         </span>
       </div>
 
       <!-- ng-submit will call addPost() upon button click -->
-      <form ng-submit="addPost()" style="margin-top:30px;">
+      <form ng-submit="addPost()" style="margin-top: 30px;">
         <h3>add a new post:</h3>
 
         <div class="form-group">
@@ -53,6 +57,29 @@
 
         <button type="submit" class="btn btn-primary">Post</button>
       </form>
+    </script>
+
+
+    <!-- Inline template for /posts.html/id -->
+    <script type="text/ng-template" id="/posts.html">
+      <div class="page-header">
+        <h3>
+          <a ng-show="post.link" href="{{post.link}}">
+            {{post.title}}
+          </a>
+          <span ng-hide="post.link">
+            {{post.title}}
+          </span>
+        </h3>
+      </div>
+
+      <div ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+        <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>
+        {{comment.upvotes}} - by {{comment.author}}
+        <span style="font-size: 20px; margin-left: 10px;">
+          {{comment.body}}
+        </span>
+      </div>
     </script>
   </body>
 </html>
