@@ -1,17 +1,21 @@
 var app = angular.module('newsr', []);
 
-app.controller('MainCtrl', ['$scope',
-  function($scope){
+// posts service to allow us to access and inject the posts array outside of the main controller.
+app.factory('postsFactory', [function() {
+  var o = {posts: []};
+  return o;
+  // o object is exposed to any other Angular module that injects it.
+  // could have just exported posts array directly, but adding it to an object lets us add new objects and methods to the service in the future.
+}]);
+
+// Injections give controller access to $scope and postsFactory
+app.controller('MainCtrl', ['$scope', 'postsFactory'
+  function($scope, postsFactory){
 
     $scope.test = 'welcome to newsr!';
 
-    $scope.posts = [
-      {title: 'post 1', link: '', upvotes: 5},
-      {title: 'post 2', link: '', upvotes: 2},
-      {title: 'post 3', link: '', upvotes: 15},
-      {title: 'post 4', link: '', upvotes: 9},
-      {title: 'post 5', link: '', upvotes: 4}
-    ];
+    // Any change or modification to $scope.posts is stored in the postsFactory service and immediately acessible by any other module that injects the postsFactory service.
+    $scope.posts = postsFactory.posts;
 
     $scope.addPost = function() {
       // prevent user from submitting a new post with a blank title
@@ -36,4 +40,4 @@ app.controller('MainCtrl', ['$scope',
       post.upvotes += 1;
     }
   }
-])
+]);
