@@ -1,4 +1,4 @@
-var app = angular.module('newsr', []);
+var app = angular.module('newsr', ['ui.router']);
 
 // posts service to allow us to access and inject the posts array outside of the main controller.
 app.factory('postsFactory', [function() {
