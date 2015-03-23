@@ -1,5 +1,17 @@
 var app = angular.module('newsr', ['ui.router']);
 
+// Configure ui-router using Angular config() function to setup a _home_ state.
+app.config(['$stateProvider', '$urlRouterProvider',
+  function($stateProvider, $urlRouterPRovider) {
+    $stateProvider.state('home', {
+      url: '/home',
+      templateUrl: '/home.html',
+      controller: 'MainCtrl'
+    });
+
+    $urlRouterPRovider.otherwise('home');
+  }]);
+
 // posts service to allow us to access and inject the posts array outside of the main controller.
 app.factory('postsFactory', [function() {
   var o = {posts: []};
