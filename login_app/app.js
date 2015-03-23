@@ -2,29 +2,31 @@ var app = angular.module('newsr', ['ui.router']);
 
 // Configure ui-router using Angular config() function to setup a _home_ state.
 app.config(['$stateProvider', '$urlRouterProvider',
-  function($stateProvider, $urlRouterPRovider) {
+  function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('home', {
       url: '/home',
       templateUrl: '/home.html',
       controller: 'MainCtrl'
     });
 
-    $urlRouterPRovider.otherwise('home');
+    $urlRouterProvider.otherwise('home');
   }]);
 
 // posts service to allow us to access and inject the posts array outside of the main controller.
-app.factory('postsFactory', [function() {
-  var o = {posts: []};
-  return o;
-  // o object is exposed to any other Angular module that injects it.
-  // could have just exported posts array directly, but adding it to an object lets us add new objects and methods to the service in the future.
-}]);
+app.factory('postsFactory', [
+  function() {
+    var o = {posts: []};
+    return o;
+    // o object is exposed to any other Angular module that injects it.
+    // could have just exported posts array directly, but adding it to an object lets us add new objects and methods to the service in the future.
+  }
+]);
 
 // Injections give controller access to $scope and postsFactory
-app.controller('MainCtrl', ['$scope', 'postsFactory'
+app.controller('MainCtrl', ['$scope', 'postsFactory',
   function($scope, postsFactory){
 
-    $scope.test = 'welcome to newsr!';
+    $scope.test = 'Welcome to Newsr!';
 
     // Any change or modification to $scope.posts is stored in the postsFactory service and immediately acessible by any other module that injects the postsFactory service.
     $scope.posts = postsFactory.posts;
@@ -53,3 +55,6 @@ app.controller('MainCtrl', ['$scope', 'postsFactory'
     }
   }
 ]);
+
+
+
