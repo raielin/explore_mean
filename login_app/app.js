@@ -3,11 +3,20 @@ var app = angular.module('newsr', ['ui.router']);
 // Configure ui-router using Angular config() function to setup a _home_ state.
 app.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
-    $stateProvider.state('home', {
-      url: '/home',
-      templateUrl: '/home.html',
-      controller: 'MainCtrl'
-    });
+    $stateProvider
+      .state('home', {
+        url: '/home',
+        templateUrl: '/home.html',
+        controller: 'MainCtrl'
+      });
+
+      // route to individual post
+      .state('posts', {
+        // 'id' is a route parameter that will be made available to our controller
+        url: '/posts/{id}',
+        templateUrl: '/posts.html',
+        controller: 'PostsCtrl'
+      });
 
     $urlRouterProvider.otherwise('home');
   }]);
