@@ -2,7 +2,7 @@ var app = angular.module('newser', []);
 
 app.controller('MainCtrl', ['$scope',
   function($scope){
-    $scope.test = 'Hello world!';
+    $scope.test = 'Welcome to Newser!';
     $scope.posts = [
       {title: 'post 1', upvotes: 5},
       {title: 'post 2', upvotes: 2},
