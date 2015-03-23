@@ -1,9 +1,9 @@
-var app = angular.module('newser', []);
+var app = angular.module('newsr', []);
 
 app.controller('MainCtrl', ['$scope',
   function($scope){
 
-    $scope.test = 'Welcome to Newser!';
+    $scope.test = 'welcome to newsr!';
 
     $scope.posts = [
       {title: 'post 1', link: '', upvotes: 5},
