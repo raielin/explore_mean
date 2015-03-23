@@ -11,7 +11,11 @@ app.controller('MainCtrl', ['$scope',
       {title: 'post 5', upvotes: 4}
     ];
     $scope.addPost = function() {
-      $scope.posts.push({title: 'A new post!', upvotes: 0});
+      // retrieve title from ng-model directive and push object to posts array
+      $scope.posts.push({title: $scope.title, upvotes: 0});
+
+      // clear $scope.title value after adding new post.
+      $scope.title = '';
     }
   }
 ])
