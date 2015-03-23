@@ -2,7 +2,9 @@ var app = angular.module('newser', []);
 
 app.controller('MainCtrl', ['$scope',
   function($scope){
+
     $scope.test = 'Welcome to Newser!';
+
     $scope.posts = [
       {title: 'post 1', upvotes: 5},
       {title: 'post 2', upvotes: 2},
@@ -10,6 +12,7 @@ app.controller('MainCtrl', ['$scope',
       {title: 'post 4', upvotes: 9},
       {title: 'post 5', upvotes: 4}
     ];
+
     $scope.addPost = function() {
       // prevent user from submitting a new post with a blank title
       if(!$scope.title || $scope.title === '') {
@@ -21,6 +24,10 @@ app.controller('MainCtrl', ['$scope',
 
       // clear $scope.title value after adding new post.
       $scope.title = '';
+    }
+
+    $scope.incrementUpvotes = function(post) {
+      post.upvotes += 1;
     }
   }
 ])
