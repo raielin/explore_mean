@@ -17,6 +17,16 @@ https://thinkster.io/mean-stack-tutorial/
     * `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
 * [Twitter Bootstrap](http://getbootstrap.com/) for some quick styling.
 
+####Routes
+```
+GET:  /posts - return a list of posts and associated metadata
+POST: /posts - create a new post
+GET:  /posts/:id - return an individual post with associated comments
+PUT:  /posts/:id/upvote - upvote a post, notice we use the post ID in the URL
+POST: /posts/:id/comments - add a new comment to a post by ID
+PUT:  /posts/:id/comments/:id/upvote - upvote a comment
+```
+
 ####To Run App
 * From `newsr` directory, run `$ npm start` in command line.
 * Point browser to [http://localhost:3000](http://localhost:3000).
