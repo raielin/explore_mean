@@ -113,5 +113,16 @@ router.post('/posts/:post/comments', function(req, res, next) {
   });
 });
 
+/* PUT comment upvotes */
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+  req.post.comments.comment.upvote(function(err, comment) {
+    if (err) {
+      return next(err);
+    }
+
+    res.json(comment);
+  });
+});
+
 module.exports = router;
 
