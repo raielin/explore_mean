@@ -16,3 +16,7 @@ https://thinkster.io/mean-stack-tutorial/
 * [Angular ui-router](https://github.com/angular-ui/ui-router) for client-side routing.
     * `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
 * [Twitter Bootstrap](http://getbootstrap.com/) for some quick styling.
+
+####To Run App
+* From `newsr` directory, run `$ npm start` in command line.
+* Point browser to [http://localhost:3000](http://localhost:3000).
