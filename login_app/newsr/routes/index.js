@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 /* GET posts */
 router.get('/posts', function(req, res, next) {
   Post.find(function(err, posts) {
-    if(err) {
+    if (err) {
       return next(err);
     }
 
@@ -29,7 +29,7 @@ router.post('/posts', function(req, res, next) {
   var post = new Post(req.body);
 
   post.save(function(err, post) {
-    if(err) {
+    if (err) {
       return next(err);
     }
 
@@ -63,7 +63,7 @@ router.get('/posts/:post', function(req, res) {
   res.json(req.post);
 });
 
-/* PUT upvotes */
+/* PUT post upvotes */
 router.put('/posts/:post/upvote', function(req, res, next) {
   req.post.upvote(function(err, post) {
     if (err) {
@@ -71,6 +71,27 @@ router.put('/posts/:post/upvote', function(req, res, next) {
     }
 
     res.json(post);
+  });
+});
+
+/* POST comment */
+router.post('/posts/:post/comments', function(req, res, next) {
+  var comment = new Comment(req.body);
+
+  comment.save(function(err, comment) {
+    if (err) {
+      return next(err);
+    }
+
+    req.post.comments.push(comment);
+
+    req.post.save(function(err, post) {
+      if (err) {
+        return next(err);
+      }
+
+      res.json(comment);
+    });
   });
 });
 
