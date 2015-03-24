@@ -56,6 +56,24 @@ router.param('post', function(req, res, next, id) {
   });
 });
 
+/* Grab Comment object by ID */
+router.param('comment', function(req, res, next, id) {
+  var query = Comment.findById(id);
+
+  query.exec(function(err, comment) {
+    if (err) {
+      return next(err);
+    }
+
+    if (!comment) {
+      return next(new Error('can\'t find comment'));
+    }
+
+    req.comment = comment;
+    return next();
+  });
+});
+
 /* GET post */
 // Will grab post ID as written in router.param and attach it to the `req` argument passed into route handler function.
 router.get('/posts/:post', function(req, res) {
