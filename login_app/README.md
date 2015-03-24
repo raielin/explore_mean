@@ -28,5 +28,19 @@ PUT:  /posts/:id/comments/:id/upvote - upvote a comment
 ```
 
 ####To Run App
+* Run a MongoDB server: `$ mongod &`
 * From `newsr` directory, run `$ npm start` in command line.
 * Point browser to [http://localhost:3000](http://localhost:3000).
+
+####Test App with CURL
+To create a post:
+```
+$ curl --data 'title=test&link=http://test.com' http://localhost:3000/posts
+  => This should return the created post object in JSON
+```
+
+To upvote a post:
+```
+$ curl -X PUT http://localhost:3000/posts/<POST ID>/upvote
+  => This should return the post object with the "upvote" property incremented.
+```
