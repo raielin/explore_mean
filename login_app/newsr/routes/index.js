@@ -10,7 +10,7 @@ var Comment = mongoose.model('Comment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home' });
+  res.render('home', { title: 'Home' });
 });
 
 /* GET posts */
