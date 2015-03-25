@@ -52,6 +52,12 @@ app.factory('postsFactory', ['$http',
         angular.copy(data, o.posts);
       });
     };
+    // Create new post.
+    o.create = function(post) {
+      return $http.post('/posts/', post).success(function(data) {
+        o.posts.push(data);
+      });
+    };
 
     return o;
     // o object is exposed to any other Angular module that injects it.
@@ -64,8 +70,6 @@ app.factory('postsFactory', ['$http',
 app.controller('MainCtrl', ['$scope', 'postsFactory',
   function($scope, postsFactory){
 
-    $scope.test = 'Welcome to Newsr!';
-
     // Any change or modification to $scope.posts is stored in the postsFactory service and immediately acessible by any other module that injects the postsFactory service.
     $scope.posts = postsFactory.posts;
 
@@ -75,15 +79,10 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
         return;
       }
 
-      // retrieve title from ng-model directive and push object to posts array
-      $scope.posts.push({
+      // use create() function injected from posts service to add new posts.
+      postsFactory.create({
         title: $scope.title,
-        link: $scope.link,
-        upvotes: 0,
-        comments: [
-          {author: 'Joe', body: 'Cool post!', upvotes: 0},
-          {author: 'Bob', body: 'Great idea but everything is wrong!', upvotes: 0}
-        ]
+        link: $scope.link
       });
 
       // clear title and link value after adding new post.
