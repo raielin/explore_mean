@@ -59,6 +59,12 @@ app.factory('postsFactory', ['$http',
       });
     };
 
+    o.upvote = function(post) {
+      return $http.put('/posts/' + post._id + '/upvote').success(function(data) {
+        post.upvotes += 1;
+      });
+    };
+
     return o;
     // o object is exposed to any other Angular module that injects it.
     // could have just exported posts array directly, but adding it to an object lets us add new objects and methods to the service in the future.
@@ -92,7 +98,7 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
 
     // passing in the current instance of post from the view. this happens _by reference_ so upvotes are automatically reflected back to view.
     $scope.incrementUpvotes = function(post) {
-      post.upvotes += 1;
+      postsFactory.upvote(post);
     }
   }
 ]);
