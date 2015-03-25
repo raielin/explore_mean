@@ -4,9 +4,6 @@ var app = angular.module('newsr', ['ui.router']);
 // Configure ui-router using Angular config() function to setup a _home_ state.
 app.config(['$stateProvider', '$urlRouterProvider',
   function($stateProvider, $urlRouterProvider) {
-    // For any unmatched url, redirect to /home
-    $urlRouterProvider.otherwise('home');
-
     $stateProvider
       .state('home', {
         url: '/home',
@@ -20,7 +17,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
           //   return postsFactory.getAll();
           // }
 
-          // Can also be condensed into:
+          // Can also be condensed into the following, where postsFactory is assigned to the argument of the function.
           loadPosts: ['postsFactory', function(p) {
             return p.getAll();
           }]
@@ -32,8 +29,17 @@ app.config(['$stateProvider', '$urlRouterProvider',
         // 'id' is a route parameter that will be made available to our controller
         url: '/posts/{id}',
         templateUrl: '/posts.html',
+        // ui-router detects `posts` state and will automatically query the server for the full post object, including comments before the state finishes loading.
+        resolve: {
+          grabPost: ['$stateParams', 'postsFactory', function($stateParams, p) {
+            return p.getPost($stateParams.id);
+          }]
+        },
         controller: 'PostsCtrl'
       });
+
+    // For any unmatched url, redirect to /home
+    $urlRouterProvider.otherwise('home');
   }]);
 
 /* SERVICE - Posts */
@@ -62,6 +68,13 @@ app.factory('postsFactory', ['$http',
     o.upvote = function(post) {
       return $http.put('/posts/' + post._id + '/upvote').success(function(data) {
         post.upvotes += 1;
+      });
+    };
+
+    // more on promises and then() method: https://docs.angularjs.org/api/ng/service/$q
+    o.getPost = function(id) {
+      return $http.get('/posts/' + id).then(function(res) {
+        return res.data;
       });
     };
 
@@ -106,9 +119,14 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
 /* CONTROLLER - Posts */
 // injecting $stateParams and postsFactory service. $stateParams is a ui-router object - provides controller with individual parts of the navigated URL. In this case, allows us to retrieve the post id from the URL and load the appropriate post.
 // More on $stateParams: https://github.com/angular-ui/ui-router/wiki/URL-Routing
-app.controller('PostsCtrl', ['$scope', '$stateParams', 'postsFactory',
-  function($scope, $stateParams, postsFactory) {
-    $scope.post = postsFactory.posts[$stateParams.id];
+// app.controller('PostsCtrl', ['$scope', '$stateParams', 'postsFactory',
+//   function($scope, $stateParams, postsFactory) {
+//     $scope.post = postsFactory.posts[$stateParams.id];
+
+// After adding resolve object to posts state, we can modify PostsCtrl to:
+app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost',
+  function($scope, postsFactory, grabPost) {
+    $scope.post = grabPost;
 
     $scope.addComment = function() {
       if($scope.body === '') {
