@@ -60,7 +60,14 @@ router.param('post', function(req, res, next, id) {
 // Will grab post ID as written in router.param and attach it to the `req` argument passed into route handler function.
 router.get('/posts/:post', function(req, res) {
   // `req` already has the post ID attached to it when this runs.
-  res.json(req.post);
+  // populate() method will automatically load all comments associated with a particular post
+  req.post.populate('comments', function(err, post) {
+    if (err) {
+      return next(err);
+    }
+    res.json(post)
+
+  });
 });
 
 /* PUT post upvotes */
