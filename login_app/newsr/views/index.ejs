@@ -37,7 +37,9 @@
           </span>
           <!-- When iterating over an array, the ng-repeat directive makes an $index variable along with each item in the array -->
           <span>
-            <a href="#/posts/{{$index}}">Comments</a>
+            <!-- Direct application to proper URL in database. -->
+            <!-- In our case, MongoDB uses the `_id` property natively, so easier to stick with that unless there is a specific reason not to. -->
+            <a href="#/posts/{{post._id}}">Comments</a>
           </span>
         </span>
       </div>
