@@ -65,7 +65,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
 /* FACTORY auth */
 // use $window for interfacing with `localStorage`.
-app.factory('auth', ['$http', '$window',
+app.factory('authFactory', ['$http', '$window',
   function($http, $window) {
     var auth = {};
 
@@ -127,8 +127,8 @@ app.factory('auth', ['$http', '$window',
   /* SERVICE post */
   // posts service to allow us to access and inject the posts array outside of the main controller.
   // inject $http service to query Posts route.
-app.factory('postsFactory', ['$http',
-  function($http) {
+app.factory('postsFactory', ['$http', 'authFactory',
+  function($http, authFactory) {
     var o = {posts: []};
 
     // Load all posts.
