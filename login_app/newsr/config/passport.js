@@ -3,7 +3,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
-// Create new LocalStrategy with logic on how to authenticate a user with a given username and password.
+// Create new LocalStrategy with logic on how to authenticate a user with a given username and password. More on LocalStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 // Calls validPassword() function from UserSchema in Users model.
 // For more on passport configuration: http://passportjs.org/guide/configure/
 
