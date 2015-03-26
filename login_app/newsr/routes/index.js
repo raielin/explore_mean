@@ -174,8 +174,7 @@ router.post('/register', function(req, res, next) {
       token: user.generateJWT()
     });
   });
-
-})
+});
 
 module.exports = router;
 
