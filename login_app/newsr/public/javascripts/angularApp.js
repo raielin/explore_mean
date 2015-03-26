@@ -36,11 +36,32 @@ app.config(['$stateProvider', '$urlRouterProvider',
           }]
         },
         controller: 'PostsCtrl'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: '/login.html',
+        controller: 'AuthCtrl',
+        // onEnter() will check user authentication prior to entering the state and send them back to home if they're already logged in.
+        onEnter: ['$state', 'auth', function($state, auth) {
+          if (auth.isLoggedIn()) {
+            $state.go('home');
+          }
+        }]
+      })
+      .state('register', {
+        url: '/register',
+        templateUrl: '/register.html',
+        controller: 'AuthCtrl',
+        onEnter: ['$state', 'auth', function($state, auth) {
+          if (auth.isLoggedIn()) {
+            $state.go('home');
+          }
+        }]
       });
-
     // For any unmatched url, redirect to /home
     $urlRouterProvider.otherwise('home');
-  }]);
+  }
+]);
 
 /* FACTORY auth */
 // use $window for interfacing with `localStorage`.
