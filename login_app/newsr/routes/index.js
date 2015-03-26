@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var passport = require('passport');
+
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
+var User = mongoose.model('User');
 
 // In Express, `req` stands for "request"; `res` stands for "response".
 // `req` contains all information about the request made to the server, including data fields.
