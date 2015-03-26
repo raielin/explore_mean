@@ -11,11 +11,12 @@ https://thinkster.io/mean-stack-tutorial/
 * Upvote posts and comments
 * Create and authenticate users
 
-####Additional Libraries
+####Additional Libraries/Tools
 * [Mongoose.js](http://mongoosejs.com/) for adding structure to MongoDB.
 * [Angular ui-router](https://github.com/angular-ui/ui-router) for client-side routing.
     * `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
 * [Twitter Bootstrap](http://getbootstrap.com/) for some quick styling.
+* [Passport](http://passportjs.org/) for user authentication with JWT tokens for session management.
 
 ####Routes
 ```
