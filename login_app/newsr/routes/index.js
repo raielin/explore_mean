@@ -13,6 +13,7 @@ var User = mongoose.model('User');
 // `res` is the object used to respond to the client
 
 /* Middleware for authenticating jwt tokens in routes/index.js */
+// Use `auth` in specific routes to require authentication.
 // userProperty option specifies which property on `req` to put payload from tokens. Default is `user` but using `payload` here to avoid conflicts with passport (which shouldn't really be an issue since we aren't using both methods of authentication in the same request). Also to avoid confusion since payload isn't an instance of User model.
 var auth = jwt({
   secret: 'SECRET',
@@ -38,7 +39,7 @@ router.get('/posts', function(req, res, next) {
 });
 
 /* POST posts */
-router.post('/posts', function(req, res, next) {
+router.post('/posts', auth, function(req, res, next) {
   var post = new Post(req.body);
 
   post.save(function(err, post) {
@@ -84,7 +85,7 @@ router.get('/posts/:post', function(req, res) {
 });
 
 /* PUT post upvotes */
-router.put('/posts/:post/upvote', function(req, res, next) {
+router.put('/posts/:post/upvote', auth, function(req, res, next) {
   req.post.upvote(function(err, post) {
     if (err) {
       return next(err);
@@ -106,7 +107,7 @@ router.get('/posts/:post/comments', function(req, res, next) {
 });
 
 /* POST comments */
-router.post('/posts/:post/comments', function(req, res, next) {
+router.post('/posts/:post/comments', auth, function(req, res, next) {
   var comment = new Comment(req.body);
 
   comment.save(function(err, comment) {
@@ -144,13 +145,14 @@ router.param('comment', function(req, res, next, id) {
   });
 });
 
+/* GET comment */
 router.get('/posts/:post/comments/:comment', function(req, res) {
   // `req` already has the post ID attached to it when this runs.
   res.json(req.comment);
 });
 
 /* PUT comment upvotes */
-router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+router.put('/posts/:post/comments/:comment/upvote', auth, function(req, res, next) {
   req.comment.upvote(function(err, comment) {
     if (err) {
       return next(err);
