@@ -19,4 +19,12 @@ UserSchema.methods.setPassword = function(password) {
   this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 };
 
+// Make sure the iterations and key length in setPassword() method match ones in validPassword()
+// validPassword accepts a password and compares it to the stored hash, returning a boolean
+UserSchema.methods.validPassword() = function(password) {
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+
+  return this.hash === hash;
+};
+
 mongoose.model('User', UserSchema);
