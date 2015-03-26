@@ -65,7 +65,7 @@ app.factory('postsFactory', ['$http',
       });
     };
 
-    o.upvote = function(post) {
+    o.upvotePost = function(post) {
       return $http.put('/posts/' + post._id + '/upvote').success(function(data) {
         post.upvotes += 1;
       });
@@ -81,6 +81,13 @@ app.factory('postsFactory', ['$http',
     o.createComment = function(id, comment) {
       return $http.post('/posts/' + id + '/comments', comment);
     }
+
+    o.upvoteComment = function(post, comment) {
+      return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote')
+        .success(function(data) {
+          comment.upvotes += 1;
+        });
+    };
 
     return o;
     // o object is exposed to any other Angular module that injects it.
@@ -115,7 +122,7 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
 
     // passing in the current instance of post from the view. this happens _by reference_ so upvotes are automatically reflected back to view.
     $scope.incrementUpvotes = function(post) {
-      postsFactory.upvote(post);
+      postsFactory.upvotePost(post);
     }
   }
 ]);
@@ -149,8 +156,8 @@ app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost',
     };
 
     $scope.incrementUpvotes = function(comment) {
-      comment.upvotes += 1;
-    }
+      postsFactory.upvoteComment(grabPost, comment);
+    };
   }
 ]);
 
