@@ -59,7 +59,7 @@ app.factory('postsFactory', ['$http',
       });
     };
     // Create new post.
-    o.create = function(post) {
+    o.createPost = function(post) {
       return $http.post('/posts/', post).success(function(data) {
         o.posts.push(data);
       });
@@ -77,6 +77,10 @@ app.factory('postsFactory', ['$http',
         return res.data;
       });
     };
+
+    o.createComment = function(id, comment) {
+      return $http.post('/posts/' + id + '/comments', comment);
+    }
 
     return o;
     // o object is exposed to any other Angular module that injects it.
@@ -98,8 +102,8 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
         return;
       }
 
-      // use create() function injected from posts service to add new posts.
-      postsFactory.create({
+      // use createPost() function injected from posts service to add new posts.
+      postsFactory.createPost({
         title: $scope.title,
         link: $scope.link
       });
@@ -133,10 +137,12 @@ app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost',
         return;
       }
 
-      $scope.post.comments.push({
+      // not sure why using grabPost._id instead of $scope.post for `id` argument - both work.
+      postsFactory.createComment(grabPost._id, {
         body: $scope.body,
-        author: 'user',
-        upvotes: 0
+        author: 'user'
+      }).success(function(comment) {
+        $scope.post.comments.push(comment);
       });
 
       $scope.body = '';
