@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var passport = require('passport');
+var jwt = require('express-jwt');
 
 var Post = mongoose.model('Post');
 var Comment = mongoose.model('Comment');
@@ -10,6 +11,15 @@ var User = mongoose.model('User');
 // In Express, `req` stands for "request"; `res` stands for "response".
 // `req` contains all information about the request made to the server, including data fields.
 // `res` is the object used to respond to the client
+
+/* Middleware for authenticating jwt tokens in routes/index.js */
+// userProperty option specifies which property on `req` to put payload from tokens. Default is `user` but using `payload` here to avoid conflicts with passport (which shouldn't really be an issue since we aren't using both methods of authentication in the same request). Also to avoid confusion since payload isn't an instance of User model.
+var auth = jwt({
+  secret: 'SECRET',
+  userProperty: 'payload'
+});
+
+/* NOTE on tokens: Make sure to use same secret as in User model for generating tokens. For the purposes of this practice app we are hard-coding the token, but otherwise, ALWAYS use an environment variable for referencing secret. */
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
