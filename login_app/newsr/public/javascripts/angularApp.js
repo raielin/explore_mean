@@ -42,9 +42,70 @@ app.config(['$stateProvider', '$urlRouterProvider',
     $urlRouterProvider.otherwise('home');
   }]);
 
-/* SERVICE - Posts */
-// posts service to allow us to access and inject the posts array outside of the main controller.
-// inject $http service to query Posts route.
+/* FACTORY auth */
+// use $window for interfacing with `localStorage`.
+app.factory('auth', ['$http', '$window',
+  function($http, $window) {
+    var auth = {};
+
+    auth.saveToken = function(token) {
+      $window.localStorage['newr-token'] = token;
+    };
+
+    auth.getToken = function() {
+      return $window.localStorage['newsr-token'];
+    };
+
+    // if token exists, check payload for expiration. if not, then assume user is logged out.
+    // payload is JSON object in middle part of token between two `.`s. $window.atob() turns payload back to a stringified JSON. `JSON.parse` turns it back to a javascript object.
+    auth.isLoggedIn = function() {
+      var token = auth.getToken();
+
+      if (token) {
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+        return payload.exp > Date.now() / 1000;
+      } else {
+        return false;
+      }
+    };
+
+    // Retreive username of current user
+    auth.currentUser = function() {
+      if(auth.isLoggedIn()){
+        var token = auth.getToken();
+        var payload = JSON.parse($window.atob(token.split('.')[1]));
+
+        return payload.username;
+      }
+    };
+
+    // Register user by POSTing user to /register route and saving returned token
+    auth.register = function(user) {
+      return $http.post('/register', user).success(function(data) {
+        auth.saveToken(data.token);
+      });
+    };
+
+    // Login user by POSTing user to /login route and saving returned token
+    auth.logIn = function(user) {
+      return $http.post('/login', user).success(function(data) {
+        auth.saveToken(data.token);
+      });
+    };
+
+    // Logout user by removing token from localStorage
+    auth.logOut = function() {
+      $window.localStorage.removeItem('newsr-token');
+    };
+
+    return auth;
+  }
+]);
+
+  /* SERVICE post */
+  // posts service to allow us to access and inject the posts array outside of the main controller.
+  // inject $http service to query Posts route.
 app.factory('postsFactory', ['$http',
   function($http) {
     var o = {posts: []};
@@ -160,6 +221,3 @@ app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost',
     };
   }
 ]);
-
-
-
