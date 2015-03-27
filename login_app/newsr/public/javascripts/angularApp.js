@@ -70,7 +70,7 @@ app.factory('authFactory', ['$http', '$window',
     var auth = {};
 
     auth.saveToken = function(token) {
-      $window.localStorage['newr-token'] = token;
+      $window.localStorage['newsr-token'] = token;
     };
 
     auth.getToken = function() {
@@ -155,7 +155,8 @@ app.factory('postsFactory', ['$http', 'authFactory',
       return $http.put('/posts/' + post._id + '/upvote', null, {
         headers: {
           Authorization: 'Bearer ' + auth.getToken()
-        }).success(function(data) {
+        }
+      }).success(function(data) {
         post.upvotes += 1;
       });
     };
@@ -171,16 +172,18 @@ app.factory('postsFactory', ['$http', 'authFactory',
       return $http.post('/posts/' + id + '/comments', comment, {
         headers: {
           Authorization: 'Bearer ' + auth.getToken()
-        });
+        }
+      });
     };
 
     o.upvoteComment = function(post, comment) {
       return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
         headers: {
           Authorization: 'Bearer '+auth.getToken()
-        }).success(function(data) {
-          comment.upvotes += 1;
-        });
+        }
+      }).success(function(data) {
+        comment.upvotes += 1;
+      });
     };
 
     return o;
@@ -261,12 +264,12 @@ app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost', 'authFactory'
 
 /* CONTROLLER - Authentication */
 // Initialize user on $scope for our form. Then create register() and logIn() methods on $scope to call respective auth factory methods. If no errors, send user back to home state using a promise.
-app.controller('AuthCtrl', ['$scope', '$state', 'auth',
-  function($scope, $state, auth) {
+app.controller('AuthCtrl', ['$scope', '$state', 'authFactory',
+  function($scope, $state, authFactory) {
     $scope.user = {};
 
     $scope.register = function() {
-      auth.register($scope.user).error(function(error) {
+      authFactory.register($scope.user).error(function(error) {
         $scope.error = error;
       }).then(function() {
         $state.go('home');
@@ -274,7 +277,7 @@ app.controller('AuthCtrl', ['$scope', '$state', 'auth',
     };
 
     $scope.logIn = function() {
-      auth.logIn($scope.user).error(function(error) {
+      authFactory.logIn($scope.user).error(function(error) {
         $scope.error = error;
       }).then(function() {
         $state.go('home');
