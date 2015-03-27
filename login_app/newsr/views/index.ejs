@@ -9,8 +9,11 @@
     <style> .glyphicon-thumbs-up { cursor:pointer }</style>
   </head>
   <body ng-app="newsr">
-    <nav class="navbar navbar-default pull-right" ng-controller="NavCtrl">
-      <ul class="nav navbar-nav">
+    <nav class="navbar navbar-default" ng-controller="NavCtrl">
+      <div class="navbar-header">
+        <a class="navbar-brand" ng-href="/#/home">Newsr</a>
+      </div>
+      <ul class="nav navbar-nav pull-right">
       <!-- Use ng-show and ng-hide on `isLoggedIn()` function to control what navigation options are displayed.-->
         <li ng-show="isLoggedIn()"><a>{{currentUser()}}</a></li>
         <li ng-show="isLoggedIn()"><a href="" ng-click="logOut()">Log Out</a></li>
@@ -45,7 +48,7 @@
             {{post.title}}
           </span>
           <span ng-show="post.author">
-            posted by <a>{{post.author}}</a> |
+            posted by <em>{{post.author}}</em> |
           </span>
           <!-- When iterating over an array, the ng-repeat directive makes an $index variable along with each item in the array -->
           <span>
