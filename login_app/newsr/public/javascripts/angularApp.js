@@ -144,7 +144,7 @@ app.factory('postsFactory', ['$http', 'authFactory',
     o.createPost = function(post) {
       return $http.post('/posts/', post, {
         headers: {
-          Authorization: 'Bearer ' + auth.getToken()
+          Authorization: 'Bearer ' + authFactory.getToken()
         }
       }).success(function(data) {
         o.posts.push(data);
@@ -154,7 +154,7 @@ app.factory('postsFactory', ['$http', 'authFactory',
     o.upvotePost = function(post) {
       return $http.put('/posts/' + post._id + '/upvote', null, {
         headers: {
-          Authorization: 'Bearer ' + auth.getToken()
+          Authorization: 'Bearer ' + authFactory.getToken()
         }
       }).success(function(data) {
         post.upvotes += 1;
@@ -171,7 +171,7 @@ app.factory('postsFactory', ['$http', 'authFactory',
     o.createComment = function(id, comment) {
       return $http.post('/posts/' + id + '/comments', comment, {
         headers: {
-          Authorization: 'Bearer ' + auth.getToken()
+          Authorization: 'Bearer ' + authFactory.getToken()
         }
       });
     };
@@ -179,7 +179,7 @@ app.factory('postsFactory', ['$http', 'authFactory',
     o.upvoteComment = function(post, comment) {
       return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
         headers: {
-          Authorization: 'Bearer ' + auth.getToken()
+          Authorization: 'Bearer ' + authFactory.getToken()
         }
       }).success(function(data) {
         comment.upvotes += 1;
