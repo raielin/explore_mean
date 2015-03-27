@@ -42,8 +42,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
         templateUrl: '/login.html',
         controller: 'AuthCtrl',
         // onEnter() will check user authentication prior to entering the state and send them back to home if they're already logged in.
-        onEnter: ['$state', 'auth', function($state, auth) {
-          if (auth.isLoggedIn()) {
+        onEnter: ['$state', 'authFactory', function($state, authFactory) {
+          if (authFactory.isLoggedIn()) {
             $state.go('home');
           }
         }]
@@ -52,8 +52,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
         url: '/register',
         templateUrl: '/register.html',
         controller: 'AuthCtrl',
-        onEnter: ['$state', 'auth', function($state, auth) {
-          if (auth.isLoggedIn()) {
+        onEnter: ['$state', 'authFactory', function($state, authFactory) {
+          if (authFactory.isLoggedIn()) {
             $state.go('home');
           }
         }]
