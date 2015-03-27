@@ -57,7 +57,8 @@
       </div>
 
       <!-- ng-submit will call addPost() upon button click -->
-      <form ng-submit="addPost()" style="margin-top: 30px;">
+      <!-- form will only render when isLoggedIn() evaluates to true -->
+      <form ng-submit="addPost()" ng-show="isLoggedIn()" style="margin-top: 30px;">
         <h3>add a new post:</h3>
 
         <div class="form-group">
@@ -71,6 +72,11 @@
 
         <button type="submit" class="btn btn-primary">Post</button>
       </form>
+
+      <!-- notify users to log in in order to add new post -->
+      <div ng-hide="isLoggedIn()">
+        <h3>Please <a href="/#/login">log in</a> or <a href="/#/register">register</a> before adding a new post.</h3>
+      </div>
     </script>
 
 
@@ -95,7 +101,8 @@
         </span>
       </div>
 
-      <form ng-submit="addComment()" style="margin-top: 30px;">
+      <!-- only renders when isLoggedIn() evaluates to true -->
+      <form ng-submit="addComment()" ng-show="isLoggedIn()" style="margin-top: 30px;">
         <h3>Add a new comment</h3>
 
         <div class="form-group">
@@ -104,6 +111,11 @@
 
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+
+      <!-- notify users to log in in order to comment -->
+      <div ng-hide="isLoggedIn()">
+        <h3>Please <a href="/#/login">log in</a> or <a href="/#/register">register</a> before commenting.</h3>
+      </div>
     </script>
 
     <!-- Inline template for /registration -->
