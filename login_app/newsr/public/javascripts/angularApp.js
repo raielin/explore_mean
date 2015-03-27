@@ -191,11 +191,13 @@ app.factory('postsFactory', ['$http', 'authFactory',
 
 /* CONTROLLER - Main */
 // Injections give controller access to $scope and postsFactory
-app.controller('MainCtrl', ['$scope', 'postsFactory',
-  function($scope, postsFactory){
+app.controller('MainCtrl', ['$scope', 'postsFactory', 'authFactory',
+  function($scope, postsFactory, authFactory){
 
     // Any change or modification to $scope.posts is stored in the postsFactory service and immediately acessible by any other module that injects the postsFactory service.
     $scope.posts = postsFactory.posts;
+    // Inject isLoggedIn from authFactory so can control when to show add post and add comment forms in view.
+    $scope.isLoggedIn = authFactory.isLoggedIn();
 
     $scope.addPost = function() {
       // prevent user from submitting a new post with a blank title
@@ -229,9 +231,11 @@ app.controller('MainCtrl', ['$scope', 'postsFactory',
 //     $scope.post = postsFactory.posts[$stateParams.id];
 
 // After adding resolve object to posts state, we can modify PostsCtrl to:
-app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost',
-  function($scope, postsFactory, grabPost) {
+app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost', 'authFactory',
+  function($scope, postsFactory, grabPost, authFactory) {
     $scope.post = grabPost;
+    // Inject isLoggedIn from authFactory so can control when to show add post and add comment forms in view.
+    $scope.isLoggedIn = authFactory.isLoggedIn();
 
     $scope.addComment = function() {
       if($scope.body === '') {
