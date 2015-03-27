@@ -179,7 +179,7 @@ app.factory('postsFactory', ['$http', 'authFactory',
     o.upvoteComment = function(post, comment) {
       return $http.put('/posts/' + post._id + '/comments/' + comment._id + '/upvote', null, {
         headers: {
-          Authorization: 'Bearer '+auth.getToken()
+          Authorization: 'Bearer ' + auth.getToken()
         }
       }).success(function(data) {
         comment.upvotes += 1;
@@ -200,7 +200,7 @@ app.controller('MainCtrl', ['$scope', 'postsFactory', 'authFactory',
     // Any change or modification to $scope.posts is stored in the postsFactory service and immediately acessible by any other module that injects the postsFactory service.
     $scope.posts = postsFactory.posts;
     // Inject isLoggedIn from authFactory so can control when to show add post and add comment forms in view.
-    $scope.isLoggedIn = authFactory.isLoggedIn();
+    $scope.isLoggedIn = authFactory.isLoggedIn;
 
     $scope.addPost = function() {
       // prevent user from submitting a new post with a blank title
@@ -238,7 +238,7 @@ app.controller('PostsCtrl', ['$scope', 'postsFactory', 'grabPost', 'authFactory'
   function($scope, postsFactory, grabPost, authFactory) {
     $scope.post = grabPost;
     // Inject isLoggedIn from authFactory so can control when to show add post and add comment forms in view.
-    $scope.isLoggedIn = authFactory.isLoggedIn();
+    $scope.isLoggedIn = authFactory.isLoggedIn;
 
     $scope.addComment = function() {
       if($scope.body === '') {
