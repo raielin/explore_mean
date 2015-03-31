@@ -14,9 +14,32 @@ https://thinkster.io/mean-stack-tutorial/
 ####Additional Libraries/Tools
 * [Mongoose.js](http://mongoosejs.com/) for adding structure to MongoDB.
 * [Angular ui-router](https://github.com/angular-ui/ui-router) for client-side routing.
-    * `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
+    - `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
 * [Twitter Bootstrap](http://getbootstrap.com/) for some quick styling.
 * [Passport](http://passportjs.org/) for user authentication with JWT tokens for session management.
+* [Express-Generator](http://expressjs.com/starter/generator.html) to quickly create an application skeleton.
+    Default app directory structure:
+
+        ```        
+        .
+        ├── app.js
+        ├── bin
+        │   └── www
+        ├── package.json
+        ├── public
+        │   ├── images
+        │   ├── javascripts
+        │   └── stylesheets
+        │       └── style.css
+        ├── routes
+        │   ├── index.js
+        │   └── users.js
+        └── views
+            ├── error.jade
+            ├── index.jade
+            └── layout.jade
+        ```
+    Also see [Github repo](https://github.com/expressjs/generator).
 
 ####Routes
 ```
