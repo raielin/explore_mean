@@ -70,6 +70,7 @@ $ curl -X PUT http://localhost:3000/posts/<POST ID>/upvote
 ```
 
 ####TODO
+* Break out templates and Angular modules appropriately according to standard MEAN app directory structure.
 * Better design.
 * Allow user to delete their own posts.
 * Allow user to view all of their own posted content.
