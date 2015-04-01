@@ -17,29 +17,27 @@ https://thinkster.io/mean-stack-tutorial/
     - `ui-router` is newer and provides more flexibility and features than the more standard ngRoute module.
 * [Twitter Bootstrap](http://getbootstrap.com/) for some quick styling.
 * [Passport](http://passportjs.org/) for user authentication with JWT tokens for session management.
-* [Express-Generator](http://expressjs.com/starter/generator.html) to quickly create an application skeleton.
-    Default app directory structure:
-```        
-.
-├── app.js
-├── bin
-│   └── www
-├── package.json
-├── public
-│   ├── images
-│   ├── javascripts
-│   └── stylesheets
-│       └── style.css
-├── routes
-│   ├── index.js
-│   └── users.js
-└── views
-    ├── error.jade
-    ├── index.jade
-    └── layout.jade
+* [Express-Generator](http://expressjs.com/starter/generator.html) to quickly create an application skeleton. (Also see [Github repo](https://github.com/expressjs/generator).) Default app directory structure:
 ```
-    Also see [Github repo](https://github.com/expressjs/generator).
-
+    .
+    ├── app.js
+    ├── bin
+    │   └── www
+    ├── package.json
+    ├── public
+    │   ├── images
+    │   ├── javascripts
+    │   └── stylesheets
+    │       └── style.css
+    ├── routes
+    │   ├── index.js
+    │   └── users.js
+    └── views
+        ├── error.jade
+        ├── index.jade
+        └── layout.jade
+```
+    
 ####Routes
 ```
 GET:  /posts - return a list of posts and associated metadata
