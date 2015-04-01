@@ -19,7 +19,6 @@ https://thinkster.io/mean-stack-tutorial/
 * [Passport](http://passportjs.org/) for user authentication with JWT tokens for session management.
 * [Express-Generator](http://expressjs.com/starter/generator.html) to quickly create an application skeleton.
     Default app directory structure:
-
         ```        
         .
         ├── app.js
