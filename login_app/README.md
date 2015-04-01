@@ -68,3 +68,13 @@ To upvote a post:
 $ curl -X PUT http://localhost:3000/posts/<POST ID>/upvote
   => This should return the post object with the "upvote" property incremented.
 ```
+
+####TODO
+* Better design.
+* Allow user to delete their own posts.
+* Allow user to view all of their own posted content.
+* Add SuperUser permissions.
+* Implement search functionality with [Browserify](http://blog.npmjs.org/post/114584444410/using-angulars-new-improved-browserify-support).
+* Implement filtering functionality of posts.
+* Provide dates for posts.
+* Add oauth login options via [Passport](http://passportjs.org/guide/providers/).
